@@ -68,7 +68,11 @@ const formWrapped = reduxForm({
   validate
 })(StreamCreate);
 
+const mapStateToProps = state => {
+  return { userId: state.auth.userId };
+};
+
 export default connect(
-  null,
+  mapStateToProps,
   { CreateStream }
 )(formWrapped);
