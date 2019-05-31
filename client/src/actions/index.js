@@ -1,5 +1,6 @@
 import actionTypes from "./types";
 import streams from "../apis/streams";
+import history from "../history";
 
 export const SignIn = userId => {
   return {
@@ -17,11 +18,12 @@ export const SignOut = () => {
 export const CreateStream = formValues => async (dispatch, getState) => {
   const { userId } = getState().auth;
   const response = await streams.post("/streams", { ...formValues, userId });
-  debugger;
   dispatch({
     type: actionTypes.CREATE_STREAM,
     payload: response.data
   });
+  // navigate back to all streams after successful response
+  history.push("/");
 };
 
 export const FetchStreams = () => async dispatch => {
